@@ -16,10 +16,10 @@ int totalboxes = 0;
 
 void setup(){
   minim = new Minim(this);
-  kingk1 = minim.loadFile("Magnolia.m4a",560);
+  kingk1 = minim.loadFile("japanese_something.mp3");
   kingk1.play();
-  size(560,600);
-  smooth();
+  size(displayWidth, displayHeight);
+  if (frame != null) frame.setResizable(true);
   rect1 = new Rect();
   Stars.setup();
   head = loadImage("fj.png");
@@ -30,7 +30,7 @@ void setup(){
 }
 
 void draw(){
-  background(0);
+  background(255);
   rect1.setlocation(mouseX,mouseY);
   rect1.display();
   Stars.move();
@@ -65,9 +65,10 @@ void draw(){
         drop[i].caught1();
       }
       if (rect1.inter(boxes[j])){
-        gameover();
         boxes[j].stop1();
         drop[i].stop2();
+        gameover();
+        return;
       }
     }
   }
@@ -75,9 +76,12 @@ void draw(){
 
 void gameover(){
   fill (240,40,40);
+  background(255);
   textSize (86);
   textAlign (CENTER);
   text ("Game Over", width/2, height/2);
+  drop=new Drop[1000];
+  totaldrop=0;
 }
 
 class Time{
@@ -242,7 +246,7 @@ class Sky{
     
     void setlocation (float tempx, float tempy){
       x=tempx;
-      y=tempx;
+      y=tempy;
     }
     
     void display (){
